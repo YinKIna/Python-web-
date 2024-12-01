@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}管理员面板{% endblock %}
+
+{% block content %}
+    <div class="admin-panel-wrapper">
+        <h1>欢迎您，{{ session['username'] }} 管理员面板 - 申诉处理</h1>
+        {% if appeal_records %}
+            <table class="admin-panel-table">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>玩家ID</th>
+                        <th>QQ号</th>
+                        <th>申诉理由</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                </thead>
+                <tbody>
+                    {% for index, record in appeal_records|enumerate %}
+                        <tr class="appeal-record-row">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ record.player_id }}</td>
+                            <td>{{ record.qq_number }}</td>
+                            <td>{{ record.reason }}</td>
+                            <td class="status-cell">{{ record.status }}</td>
+                            <td class="action-cell">
+                                {% if record.status == "待处理" %}
+                                    {% if session['username'] == "admin" %}
+                                        <form class="action-form" method="post" action="/admin_panel/approve/{{ index }}">
+                                            <input type="submit" class="action-button approve-button" value="同意">
+                                        </form>
+                                        <form class="action-form" method="post" action="/admin_panel/reject/{{ index }}">
+                                            <input type="submit" class="action-button reject-button" value="拒绝">
+                                            <input type="text" name="reject_reason" placeholder="请输入拒绝原因" class="reject-reason-input">
+                                        </form>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>暂无申诉记录。</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+<!-- 引入外部的 admin_panel.css 文件 -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin_panel.css') }}">

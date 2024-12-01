@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}网站主页{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1>欢迎来到封禁申诉平台</h1>
+    {% if 'username' in session %}
+        <p>欢迎您，{{ session['username'] }}，若您遭遇了封禁情况，可通过导航栏进行申诉操作，我们将秉持公正原则处理您的申诉。</p>
+    {% else %}
+        <p>若您遭遇了封禁情况，可先注册或登录后通过导航栏进行申诉操作，我们将秉持公正原则处理您的申诉。</p>
+    {% endif %}
+    <a href="/appeal" class="appeal-button">立刻申诉</a>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}申诉进展查询{% endblock %}
+
+{% block content %}
+    <h1>申诉进展查询</h1>
+    <div class="search-form">
+        <form method="get" action="/progress">
+            <input type="text" name="search_query" placeholder="请输入玩家ID或QQ号进行查询">
+            <input type="submit" value="查询">
+        </form>
+    </div>
+    {% if search_results %}
+        <ul class="appeal-list">
+            {% for result in search_results %}
+                <li class="appeal-item">
+                    <div class="appeal-info">
+                        <p>玩家ID: {{ result.player_id }}</p>
+                        <p>QQ号: {{ result.qq_number }}</p>
+                        <p>申诉理由: {{ result.reason }}</p>
+                        <p>状态: {{ result.status }}</p>
+                        {% if result.status == "拒收" %}
+                            <p>拒绝原因: {{ result.reject_reason }}</p>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>未查询到相关申诉记录。</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <!-- 导航栏部分 -->
+    <nav>
+        <a href="/">主页</a>
+        <a href="/appeal">封禁申诉</a>
+        <a href="/progress">申诉进展</a>
+        <a href="/appeal_rules">申诉规则</a>
+        {% if 'username' in session %}
+            <a href="/admin_panel">管理员面板</a>
+            <a href="/logout">注销</a>
+        {% else %}
+            <a href="/login">登录</a>
+            <a href="/register">注册</a>
+        {% endif %}
+    </nav>
+
+    <!-- 主页背景图片 -->
+    {% if request.path == '/' %}
+    <img id="homepage-bg" src="{{ url_for('static', filename='images/homepage-bg.jpg') }}" alt="主页背景图片">
+    {% endif %}
+
+    <!-- 页面主体内容区域 -->
+    <div class="main-content page-content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

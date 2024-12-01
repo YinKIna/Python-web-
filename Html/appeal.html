@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}封禁申诉{% endblock %}
+
+{% block content %}
+    <h1>封禁申诉</h1>
+    <form method="post" action="/appeal">
+        <label for="player_id">玩家ID：</label><input type="text" id="player_id" name="player_id" required><br>
+        <label for="qq_number">QQ号码：</label><input type="text" id="qq_number" name="qq_number" required><br>
+        <label for="reason">申诉理由：</label><br>
+        <textarea id="reason" name="reason" rows="5" cols="40" required></textarea><br>
+        <input type="submit" value="提交申诉">
+    </form>
+{% endblock %}
