@@ -1,0 +1,89 @@
+/* 整体包裹样式，用于设置页面边距等基础样式 */
+.admin-panel-wrapper {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 管理员面板表格样式 */
+.admin-panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* 表头样式 */
+.admin-panel-table th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #333333;
+    background-color: #262626;
+    color: #e0e0e0;
+}
+
+/* 表格主体行样式 */
+.admin-panel-table tr {
+    border-bottom: 1px solid #333333;
+}
+
+/* 表格主体行鼠标悬停效果 */
+.admin-panel-table tr.appeal-record-row:hover {
+    background-color: #333333;
+}
+
+/* 表格单元格通用样式 */
+.admin-panel-table td {
+    text-align: left;
+    padding: 10px;
+}
+
+/* 状态列单元格样式 */
+.admin-panel-table td.status-cell {
+    width: 100px;
+}
+
+/* 操作列单元格样式 */
+.admin-panel-table td.action-cell {
+    width: 180px;
+    display: flex;
+    flex-wrap: wrap; /* 允许内部元素换行，避免空间不足时挤压 */
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 操作按钮样式 */
+.action-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box; /* 确保元素的尺寸计算包含内边距和边框 */
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+/* 拒绝原因输入框样式 */
+.reject-reason-input {
+    width: 100%; /* 占满父元素宽度，在 flex 布局下自适应 */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px; /* 增加一点顶部间距，避免过于紧凑 */
+}
+
+/* 操作表单样式 */
+.action-form {
+    width: 100%; /* 占满父元素宽度，在 flex 布局下自适应 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 垂直方向居中对齐 */
+}

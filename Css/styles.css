@@ -1,0 +1,291 @@
+/* 全局样式 */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 导航栏样式 */
+nav {
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: #888888;
+}
+
+/* 页面主体内容区域样式（除主页外） */
+.main-content {
+    width: 80%;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #1e1e1e;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 标题样式 */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* 表单样式 */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #e0e0e0;
+}
+
+input[type="text"],
+textarea {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    background-color: #262626;
+    color: #e0e0e0;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    border-color: #888888;
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: #e0e0e0;
+    color: #121212;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    align-self: center;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #888888;
+    color: #ffffff;
+}
+
+/* 申诉记录列表样式 */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 15px;
+    font-size: 16px;
+    color: #e0e0e0;
+    background-color: #262626;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+}
+
+/* 搜索栏样式 */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px 30px;
+    border: 1px solid #333333;
+    border-radius: 80px;
+    background-color: #262626;
+    color: #e0e0e0;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.search-form input[type="submit"] {
+    background-color: #e0e0e0;
+    color: #121212;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.9s ease;
+}
+
+.search-form input[type="submit"]:hover {
+    background-color: #888888;
+    color: #ffffff;
+}
+
+/* 主页背景图片样式 */
+#homepage-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    display: block;
+}
+
+/* 除主页外其他页面主体内容区域样式调整 */
+.page-content {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/* 文字居中样式类 */
+.text-center {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+/* 立刻申诉按钮样式 */
+.appeal-button {
+    display: inline-block;
+    background-color: #e0e0e0;
+    color: #121212;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.appeal-button:hover {
+    background-color: #888888;
+    color: #ffffff;
+}
+
+/* 登录页面样式 */
+.login-form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-form label {
+    margin-top: 15px;
+}
+
+.login-form input[type="submit"] {
+    margin-top: 20px;
+}
+
+/* 管理员面板样式 */
+.admin-panel-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.admin-panel-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.admin-panel-table th {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #333333;
+    background-color: #262626;
+    color: #e0e0e0;
+}
+
+.admin-panel-table tr {
+    border-bottom: 1px solid #333333;
+}
+
+.admin-panel-table tr.appeal-record-row:hover {
+    background-color: #333333;
+}
+
+.admin-panel-table td {
+    text-align: left;
+    padding: 10px;
+}
+
+.admin-panel-table td.action-td {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.button-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.reject-reason-input {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 5px;
+    width: 200px;
+}
+
+/* 确保操作按钮相关元素默认是可见的 */
+.action-button,
+.button-wrapper,
+.admin-panel-table td.action-td {
+    display: block;
+    visibility: visible;
+}
