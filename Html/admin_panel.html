@@ -3,8 +3,12 @@
 {% block title %}管理员面板{% endblock %}
 
 {% block content %}
-    <div class="admin-panel-wrapper">
-        <h1>欢迎您，{{ session['username'] }} 管理员面板 - 申诉处理</h1>
+    <div class="admin-panel-container">
+        <h1 class="page-title">管理员面板 - 申诉处理</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="搜索申诉记录（玩家ID或QQ号）" class="search-input">
+            <button class="search-button">搜索</button>
+        </div>
         {% if appeal_records %}
             <table class="admin-panel-table">
                 <thead>
@@ -15,26 +19,27 @@
                         <th>申诉理由</th>
                         <th>状态</th>
                         <th>操作</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {% for index, record in appeal_records|enumerate %}
                         <tr class="appeal-record-row">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ record.player_id }}</td>
-                            <td>{{ record.qq_number }}</td>
-                            <td>{{ record.reason }}</td>
+                            <td class="index-cell">{{ index + 1 }}</td>
+                            <td class="player-id-cell">{{ record.player_id }}</td>
+                            <td class="qq-number-cell">{{ record.qq_number }}</td>
+                            <td class="reason-cell">{{ record.reason }}</td>
                             <td class="status-cell">{{ record.status }}</td>
                             <td class="action-cell">
                                 {% if record.status == "待处理" %}
-                                    {% if session['username'] == "admin" %}
-                                        <form class="action-form" method="post" action="/admin_panel/approve/{{ index }}">
-                                            <input type="submit" class="action-button approve-button" value="同意">
-                                        </form>
-                                        <form class="action-form" method="post" action="/admin_panel/reject/{{ index }}">
-                                            <input type="submit" class="action-button reject-button" value="拒绝">
-                                            <input type="text" name="reject_reason" placeholder="请输入拒绝原因" class="reject-reason-input">
-                                        </form>
-                                    {% endif %}
+                                    <form class="action-form" method="post" action="/admin_panel/approve/{{ index }}" onsubmit="return handleApproveSubmit(event)">
+                                        <button class="action-button approve-button" onclick="return confirm('确定要同意该申诉吗？')">同意</button>
+                                    </form>
+                                    <form class="action-form" method="post" action="/admin_panel/reject/{{ index }}" onsubmit="return handleRejectSubmit(event)">
+                                        <button class="action-button reject-button" onclick="toggleRejectReasonInput(this)">拒绝</button>
+                                        <input type="text" name="reject_reason" placeholder="请输入拒绝原因" class="reject-reason-input" style="display: none;">
+                                    </form>
+                                {% elif record.status == "拒收" %}
+                                    <p class="reject-reason-display">拒绝原因: {{ record.reject_reason }}</p>
                                 {% endif %}
                             </td>
                         </tr>
@@ -42,10 +47,11 @@
                 </tbody>
             </table>
         {% else %}
-            <p>暂无申诉记录。</p>
+            <p class="empty-message">暂无申诉记录。</p>
         {% endif %}
     </div>
+    <script src="{{ url_for('static', filename='admin_panel.js') }}"></script>
+    <script src="{{ url_for('static', filename='cache_handler.js') }}"></script>
 {% endblock %}
 
-<!-- 引入外部的 admin_panel.css 文件 -->
 <link rel="stylesheet" href="{{ url_for('static', filename='admin_panel.css') }}">
