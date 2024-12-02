@@ -1,11 +1,54 @@
-/* 整体包裹样式，用于设置页面边距等基础样式 */
-.admin-panel-wrapper {
+/* 整体容器样式 */
+.admin-panel-container {
     width: 90%;
     margin: 20px auto;
     padding: 20px;
     background-color: #1e1e1e;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif; /* 设置整体字体，让页面更统一美观 */
+}
+
+/* 页面标题样式 */
+.page-title {
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* 搜索栏样式 */
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1; /* 让输入框自动占据剩余空间，灵活适应宽度 */
+    padding: 10px 15px;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    background-color: #262626;
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+.search-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
 }
 
 /* 管理员面板表格样式 */
@@ -29,7 +72,6 @@
     border-bottom: 1px solid #333333;
 }
 
-/* 表格主体行鼠标悬停效果 */
 .admin-panel-table tr.appeal-record-row:hover {
     background-color: #333333;
 }
@@ -40,50 +82,73 @@
     padding: 10px;
 }
 
-/* 状态列单元格样式 */
-.admin-panel-table td.status-cell {
+/* 各列单元格样式 */
+.index-cell {
+    width: 50px;
+}
+
+.player-id-cell {
+    width: 120px;
+}
+
+.qq-number-cell {
+    width: 120px;
+}
+
+.reason-cell {
+    width: 300px;
+}
+
+.status-cell {
     width: 100px;
 }
 
-/* 操作列单元格样式 */
-.admin-panel-table td.action-cell {
-    width: 180px;
+.action-cell {
+    width: 200px;
     display: flex;
-    flex-wrap: wrap; /* 允许内部元素换行，避免空间不足时挤压 */
     align-items: center;
     justify-content: space-between;
 }
 
-/* 操作按钮样式 */
+/* 操作按钮样式（整体通用样式，适用于同意和拒绝按钮） */
 .action-button {
     display: inline-block;
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 8px 12px;  /* 适当减小按钮内边距，让按钮看起来更紧凑美观 */
+    border-radius: 4px;  /* 适当减小按钮圆角半径，更显精致 */
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-sizing: border-box; /* 确保元素的尺寸计算包含内边距和边框 */
+    margin-right: 5px;  /* 给按钮之间添加一点间隔，更美观 */
 }
 
 .action-button:hover {
     background-color: #0056b3;
 }
 
-/* 拒绝原因输入框样式 */
-.reject-reason-input {
-    width: 100%; /* 占满父元素宽度，在 flex 布局下自适应 */
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-top: 5px; /* 增加一点顶部间距，避免过于紧凑 */
+/* 同意按钮单独样式（可根据需要进一步区分样式，这里简单设置背景色区分） */
+.approve-button {
+    background-color: #28a745;  /* 绿色背景，示意同意操作 */
 }
 
-/* 操作表单样式 */
-.action-form {
-    width: 100%; /* 占满父元素宽度，在 flex 布局下自适应 */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 垂直方向居中对齐 */
+/* 拒绝按钮单独样式 */
+.reject-button {
+    background-color: #dc3545;  /* 红色背景，示意拒绝操作 */
+}
+
+/* 拒绝原因输入框样式 */
+.reject-reason-input {
+    width: 100%;
+    padding: 6px;  /* 适当减小输入框内边距 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+/* 无申诉记录提示信息样式 */
+.empty-message {
+    text-align: center;
+    color: #888888;
+    margin-top: 20px;
 }

@@ -1,0 +1,197 @@
+/* 整体页面背景 */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 主容器样式 */
+.main-wrapper {
+    width: 800px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 30px;
+}
+
+/* 页面头部标题样式 */
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-title {
+    color: #333333;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* 搜索容器样式 */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+/* 搜索表单样式 */
+#search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* 搜索输入框样式 */
+.search-input {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* 搜索按钮样式 */
+.search-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 86, 179, 0.3);
+    transform: translateY(-2px);
+}
+
+/* 表格容器样式 */
+.table-container {
+    margin-top: 30px;
+    overflow-x: auto;
+}
+
+/* 申诉进展表格样式 */
+.progress-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    min-width: 100%;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    color: #444444;
+}
+
+/* 表头样式 */
+.progress-table thead tr {
+    background-color: #f0f0f0;
+}
+
+.progress-table th {
+    text-align: center;
+    padding: 18px 15px;
+    border-bottom: 2px solid #ccc;
+    font-weight: bold;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    transition: background-color 0.3s ease;
+}
+
+.progress-table th:hover {
+    background-color: #e8e8e8;
+}
+
+/* 表格主体行样式 */
+.progress-table tbody tr.record-row {
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s ease;
+}
+
+.progress-table tbody tr.record-row:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+/* 表格单元格通用样式 */
+.progress-table td {
+    text-align: center;
+    padding: 16px 15px;
+    border-right: 1px solid #ccc;
+    word-break: break-word;
+    transition: all 0.3s ease;
+}
+
+.progress-table td:last-child {
+    border-right: none;
+}
+
+.progress-table td:hover {
+    background-color: #f6f6f6;
+    color: #007bff;
+}
+
+/* 各列单元格宽度样式 */
+.index-column,
+.index-cell {
+    width: 80px;
+}
+
+.player-id-column,
+.player-id-cell {
+    width: 180px;
+}
+
+.qq-number-column,
+.qq-number-cell {
+    width: 180px;
+}
+
+.reason-column,
+.reason-cell {
+    width: 300px;
+}
+
+.status-column,
+.status-cell {
+    width: 120px;
+}
+
+.reject-reason-column,
+.reject-reason-cell {
+    width: 250px;
+}
+
+/* 无申诉记录提示信息容器样式 */
+.empty-result-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* 无申诉记录提示信息样式 */
+.empty-message {
+    color: #888888;
+    font-size: 20px;
+}
