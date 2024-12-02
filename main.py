@@ -32,6 +32,8 @@ def load_data():
                     user_info["password"] = ""
                 elif "permission" not in user_info:
                     user_info["permission"] = NORMAL_PERMISSION
+                else:
+                    user_info["permission"] = user_info.get("permission", NORMAL_PERMISSION)
             print("数据加载完成，加载后的用户数据:", users)
         print("数据加载完成")
     except FileNotFoundError:
@@ -44,7 +46,7 @@ def save_data():
         'appeal_records': appeal_records,
         'users': users
     }
-    print("开始保存数据，当前要保存的用户数据:", users)
+    print("开始保存数据，当前要保存的申诉记录数据:", appeal_records)
     print("开始保存数据...")
     with open('data.json', 'w') as file:
         json.dump(data, file)
@@ -60,6 +62,7 @@ def _enumerate(iterable):
         result.append((index, element))
     return result
 
+# 主页路由
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -80,23 +83,27 @@ def appeal():
         }
         appeal_records.append(appeal_record)
         save_data()  # 提交申诉后保存数据
+        print("新提交的申诉记录内容:", appeal_record)  # 新增打印语句，查看完整的申诉记录对象
         return "申诉已提交，我们会尽快处理！"
     return render_template('appeal.html')
 
-# 申诉进展页面路由
+# 申诉进展页面路由（重点优化查询逻辑及数据传递逻辑）
 @app.route('/progress')
 def progress():
-    search_query = request.args.get('search_query')
+    search_query = request.args.get('search_query')  # 获取查询内容，不做默认空字符串处理
+    search_results = []
     if search_query:
-        search_results = [record for record in appeal_records if search_query == record['player_id'] or search_query == record['qq_number']]
-    else:
-        search_results = []
+        for record in appeal_records:
+            if search_query == record['player_id'] or search_query == record['qq_number']:
+                search_results.append(record)
     return render_template('progress.html', search_results=search_results)
 
+# 申诉规则页面路由
 @app.route('/appeal_rules')
 def appeal_rules():
     return render_template('appeal_rules.html')
 
+# 注册页面路由（修改注册逻辑，设置注册用户为最高权限）
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -136,55 +143,76 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-    if username and password:
         username = username.strip()
         password = password.strip()
         if username in users and isinstance(users[username], dict) and "password" in users[username]:
             stored_password = users[username]["password"].strip()
             if password == stored_password:
                 session['username'] = username
-                print(f"用户 {username} 登录成功，设置 session['username'] 为 {username}")  # 新增打印语句，查看登录成功时用户名设置情况
+                print(f"用户 {username} 登录成功，已将用户名存入 session，当前 session['username']: {username}")
                 return redirect('/')
             else:
-                print(f"密码错误，用户 {username} 登录失败")  # 新增打印语句，查看密码错误情况
+                print(f"密码错误，用户 {username} 登录失败")
                 return render_template('login.html', error="密码错误，请重新输入")
         else:
-            print(f"用户名 {username} 不存在，登录失败")  # 新增打印语句，查看用户名不存在情况
+            print(f"用户名 {username} 不存在，登录失败")
             return render_template('login.html', error="用户名不存在，请先注册")
     return render_template('login.html')
 
 # 管理员面板页面路由（优化权限判断及数据传递逻辑，添加更多打印输出）
 @app.route('/admin_panel')
 def admin_panel():
-    print("进入 admin_panel 路由，当前 session 中的用户名:", session.get('username'))  # 新增打印语句，查看进入路由时用户名情况
-    if 'username' in session and users[session['username']]["permission"] == ADMIN_PERMISSION:
-        print("当前用户权限为管理员权限，传递申诉记录数据到前端")
-        print("传递给前端的申诉记录数据:", appeal_records)  # 新增打印语句，查看传递的数据内容
+    username = session.get('username')
+    print("进入 admin_panel 路由，当前登录用户名:", username)
+    has_admin_permission = False
+    if username in users and users[username]["permission"] == ADMIN_PERMISSION:
+        has_admin_permission = True
+        print("当前用户具有管理员权限")
+        print("传递给前端的申诉记录数据:", appeal_records)
+        for record in appeal_records:
+            print("每条申诉记录的状态:", record['status'])
+    else:
+        print("当前用户不具有管理员权限")
+    if has_admin_permission:
         return render_template('admin_panel.html', appeal_records=appeal_records)
     else:
-        print("当前用户非管理员权限或未登录，重定向到登录页面")
         return redirect('/login')
 
 # 管理员处理申诉路由（同意操作）
 @app.route('/admin_panel/approve/<int:index>', methods=['POST'])
 def approve_appeal(index):
+    username = session.get('username')
+    print("进入 approve_appeal 路由，当前登录用户名:", username)
+    print("当前用户权限:", users[username]["permission"] if username in users else "未登录")
     if 'username' in session and users[session['username']]["permission"] == ADMIN_PERMISSION:
         if index < len(appeal_records):
+            print("当前要处理的申诉记录索引:", index)
+            print("申诉记录列表的长度:", len(appeal_records))
             appeal_records[index]['status'] = "通过"
             save_data()  # 处理申诉后保存数据
-        return redirect('/admin_panel')
+            return redirect('/admin_panel')
+        else:
+            print("索引超出范围，无法处理申诉记录")
+            return redirect('/admin_panel')
     else:
         return redirect('/login')
 
+# 管理员处理申诉路由（拒绝操作）
 @app.route('/admin_panel/reject/<int:index>', methods=['POST'])
 def reject_appeal(index):
+    username = session.get('username')
+    print("进入 reject_appeal 路由，当前登录用户名:", username)
+    print("当前用户权限:", users[username]["permission"] if username in users else "未登录")
     if 'username' in session and users[session['username']]["permission"] == ADMIN_PERMISSION:
         if index < len(appeal_records):
             reject_reason = request.form.get('reject_reason')
             appeal_records[index]['status'] = "拒收"
             appeal_records[index]['reject_reason'] = reject_reason if reject_reason else "未填写拒绝原因"
             save_data()  # 处理申诉后保存数据
-        return redirect('/admin_panel')
+            return redirect('/admin_panel')
+        else:
+            print("索引超出范围，无法处理申诉记录")
+            return redirect('/admin_panel')
     else:
         return redirect('/login')
 
